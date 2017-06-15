@@ -1,5 +1,6 @@
 package stormPath;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class City {
@@ -12,8 +13,8 @@ public class City {
 	}
 
 	public boolean wasHit(Storm storm){
-		for (Object eachStorm : storms){
-			if (storm.equals((Storm) eachStorm)){
+		for (Object city : storm.getCities()){
+			if (city.equals(this)){
 				return true;
 			}
 		}
@@ -32,22 +33,31 @@ public class City {
 
 
 	public void addStorm(Storm storm){
-		this.storms.add(storm);
+		storms.add(storm);
+		if (!storm.getCities().contains(this)){
+			storm.addCity(this);
+		}
 	}
 
-	public boolean equals(City city){
-		if (!this.name.equals(city.name)) {
-			return false;
-		}
-		if (this.storms.size() != city.storms.size()){
-			return false;
-		}
-		for (Object temp : this.storms){
-			if (!city.storms.contains(temp)) {
+	public boolean equals(Object city){
+
+		if (city instanceof City){
+			if (!this.name.equals(((City) city).name)){
 				return false;
 			}
+			if (this.storms.size() != (((City) city).storms.size())){
+				return false;
+			}
+			for (Object temp : this.storms){
+				if (!((City) city).storms.contains(temp)) {
+					return false;
+				}
+			}
+			return true;
 		}
-		return true;
+		else{
+			return false;
+		}
 	}
 
 
@@ -55,8 +65,24 @@ public class City {
 		return name;
 	}
 
+	public ArrayList getStorms(){
+	    return storms;
+    }
+
 	public  String toString(){
-		return " " + name + " ";
+		String stormList = "";
+		String[] stormNames = new String[storms.size()];
+		for (int i = 0; i < storms.size(); i++){
+		    System.out.println(((Storm)storms.get(i)).getName());
+		    stormNames[i] = ((Storm)storms.get(i)).getName();
+        }
+		stormList = String.join(", ", stormNames);
+
+//		for (Object storm : storms){
+//			stormList = stormList + ((Storm)storm).getName();
+//		}
+
+		return name + " (" + stormList + ")";
 	}
 
 }

@@ -224,7 +224,7 @@ public class StormTest {
 		c1.addStorm(s2);
 		c1.addStorm(s3);
 		String res = c1.toString();
-		String exp = "Veracruz (Daniel, Fred, Dolly)";
+		String exp = "Veracruz (Danielle, Fred, Dolly)";
 		assertEquals(exp, res);
 	}
 
@@ -232,7 +232,7 @@ public class StormTest {
 	public void testStormToStringNoCities() {
 		Storm s1 = new Storm("Danielle", 2016);
 		String res = s1.toString();
-		String exp = "The Thing, 2016";
+		String exp = "Danielle, 2016";
 		assertEquals(exp, res);
 	}
 
